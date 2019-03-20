@@ -8,7 +8,10 @@ __all__ = (
     'Statistics',
     'Entry',
     'Carrier',
-    'Airport'
+    'Airport',
+    'DescriptiveStatistics',
+    'CarrierReview',
+    'CarrierRating'
 )
 
 
@@ -44,9 +47,16 @@ class MinutesDelayed(models.Model):
 
 
 class Statistics(models.Model):
-    number_of_delays = models.OneToOneField(NumberOfDelays, on_delete=models.CASCADE)
-    flights = models.OneToOneField(Flights, on_delete=models.CASCADE)
-    minutes_delayed = models.OneToOneField(MinutesDelayed, on_delete=models.CASCADE)
+    flights = models.OneToOneField(Flights,
+                                   related_name="flights_statistics",
+                                   on_delete=models.CASCADE)
+    number_of_delays = models.OneToOneField(NumberOfDelays,
+                                            related_name="number_of_delays_statistics",
+                                            on_delete=models.CASCADE)
+    minutes_delayed = models.OneToOneField(
+                            MinutesDelayed,
+                            related_name="minutes_delayed_statistics",
+                            on_delete=models.CASCADE)
 
 
 class Carrier(models.Model):
@@ -60,9 +70,32 @@ class Airport(models.Model):
 
 
 class Entry(models.Model):
-    statistics = models.OneToOneField(Statistics, on_delete=models.CASCADE)
-    time = models.OneToOneField(Time, on_delete=models.CASCADE)
-    carrier = models.ForeignKey(Carrier, on_delete=models.CASCADE)
-    airport = models.ForeignKey(Airport, on_delete=models.CASCADE)
+    statistics = models.OneToOneField(Statistics, related_name='statistics_entry', on_delete=models.CASCADE)
+    time = models.OneToOneField(Time, related_name='statistics_time', on_delete=models.CASCADE)
+    carrier = models.ForeignKey(Carrier, related_name='carrier_entries', on_delete=models.CASCADE)
+    airport = models.ForeignKey(Airport, related_name='airport_entries', on_delete=models.CASCADE)
+
+
+class DescriptiveStatistics(models.Model):
+    mean = models.FloatField()
+    median = models.FloatField()
+    standard_deviation = models.FloatField()
+    carrier = models.ForeignKey(Carrier, related_name='carrier_descriptive_statistics', on_delete=models.CASCADE)
+
+
+class CarrierRating(models.Model):
+    carrier = models.ForeignKey(Carrier, related_name='carrier_rating', on_delete=models.CASCADE)
+    votes = models.IntegerField(default=0)
+    total = models.IntegerField(default=0)
+
+    @property
+    def rating(self):
+        return float(self.total)/self.votes
+
+
+class CarrierReview(models.Model):
+    carrier = models.ForeignKey(Carrier, related_name='carrier_review', on_delete=models.CASCADE)
+    text = models.TextField()
+
 
 

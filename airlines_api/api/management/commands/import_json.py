@@ -16,10 +16,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         data = json.load(open('airlines.json'))
 
-        print(len(data))
-        print(data[0])
-
-        for x in range(int(len(data)/1000)):
+        for x in range(int(len(data))):
 
             time = data[x]['time']
 
