@@ -11,7 +11,8 @@ from api.models import (
     Carrier
 )
 
-
+# The command that can import the json and create the database.
+# It may take a while (up to 10 minutes)...
 class Command(BaseCommand):
     def handle(self, *args, **options):
         data = json.load(open('airlines.json'))

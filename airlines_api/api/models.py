@@ -16,6 +16,12 @@ __all__ = (
 
 
 class Time(models.Model):
+    """
+        Each Time objects is defined by:
+            -A month
+            -A year
+        Label is the concatenation of month and year
+    """
     month = models.IntegerField(blank=False)
     year = models.IntegerField(blank=False)
     label = models.CharField(blank=False, max_length=10)
@@ -47,6 +53,12 @@ class MinutesDelayed(models.Model):
 
 
 class Statistics(models.Model):
+    """
+        Each statistics objects has 3 1-to-1 relationships to:
+            - A Flights object
+            - A NumberOfDelays object
+            - A MinutesDelayed object
+    """
     flights = models.OneToOneField(Flights,
                                    related_name="flights_statistics",
                                    on_delete=models.CASCADE)
@@ -58,18 +70,35 @@ class Statistics(models.Model):
                             related_name="minutes_delayed_statistics",
                             on_delete=models.CASCADE)
 
-
 class Carrier(models.Model):
+    """
+        Each carrier has:
+            -A code
+            -A name
+    """
     code = models.CharField(blank=False, max_length=10)
     name = models.TextField(blank=False)
 
 
 class Airport(models.Model):
+    """
+        Each airports has:
+            -A code
+            -A name
+    """
     code = models.CharField(blank=False, max_length=10)
     name = models.TextField(blank=False)
 
 
 class Entry(models.Model):
+    """
+    Each entry is defined by:
+        -A month and a year
+        -A carrier
+        -An airport
+
+    It has a statistics object associated
+    """
     statistics = models.OneToOneField(Statistics, related_name='statistics_entry', on_delete=models.CASCADE)
     time = models.OneToOneField(Time, related_name='statistics_time', on_delete=models.CASCADE)
     carrier = models.ForeignKey(Carrier, related_name='carrier_entries', on_delete=models.CASCADE)
@@ -84,16 +113,30 @@ class DescriptiveStatistics(models.Model):
 
 
 class CarrierRating(models.Model):
+    """
+        Each object of this type stores:
+            - A refference to a Carrier
+            - Number of votes
+            - Total number of "stars"
+    """
     carrier = models.ForeignKey(Carrier, related_name='carrier_rating', on_delete=models.CASCADE)
     votes = models.IntegerField(default=0)
     total = models.IntegerField(default=0)
 
     @property
     def rating(self):
+        """
+        Computing the average rating by dividing the sum of stars by the number of votes
+        """
         return float(self.total)/self.votes
 
 
 class CarrierReview(models.Model):
+    """
+        Each object of this type stores:
+            -A text
+            -A refference to a Carrier
+    """
     carrier = models.ForeignKey(Carrier, related_name='carrier_review', on_delete=models.CASCADE)
     text = models.TextField()
 
