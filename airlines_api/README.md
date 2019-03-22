@@ -1,6 +1,6 @@
 # Airlines api README
 
-### For course: Web engineering
+**For course: Web engineering**
 
 ## Installation
 
@@ -41,7 +41,6 @@ Start the development server
 ```shell
 ./manage.py runserver
 ```
-
 
 **In case a fresh database is desired:**
 
