@@ -24,7 +24,6 @@ class DescriptiveStatisticsDetail extends React.Component {
 			descriptive_statistic: response.data
 		})
 
-		console.log(this.state);
 	}
 
 	renderDescriptiveStatistic() {

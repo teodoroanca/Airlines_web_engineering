@@ -23,9 +23,6 @@ class DescriptiveStatistics extends React.Component {
 		this.setState({
 			airports: response.data
 		})
-
-		console.log(this.state.airports);
-
 	} 
 
 	componentDidMount() {
@@ -62,13 +59,7 @@ class DescriptiveStatistics extends React.Component {
 
 	handleSubmit = (event) => {
 	  	event.preventDefault();
-	    console.log('Your airport1 is: ' + this.state.airport1);
-	    console.log('Your airport2 is: ' + this.state.airport2);
-
-
 	    this.getDescriptiveStatistics(this.state.airport1, this.state.airport2)
-
-
 	  }
 
 	renderDescriptiveStatistics() {

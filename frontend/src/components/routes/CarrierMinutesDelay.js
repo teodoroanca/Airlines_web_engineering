@@ -24,14 +24,7 @@ class CarrierMinutesDelay extends React.Component {
 
 	  handleSubmit = (event) => {
 	  	event.preventDefault();
-	    console.log('Your airport is: ' + this.state.airport);
-	    console.log('Your year is: ' + this.state.year);
-	    console.log('Your month is: ' + this.state.month);
-
-
 	    this.getDelays(this.state.airport, this.state.year, this.state.month);
-
-
 	  }
 
 	getAirports = async () => {
@@ -41,8 +34,6 @@ class CarrierMinutesDelay extends React.Component {
 		this.setState({
 			airports: response.data
 		})
-
-		console.log(this.state.airports);
 
 	}  
 
@@ -142,13 +133,6 @@ class CarrierMinutesDelay extends React.Component {
 			carrier_code:this.props.match.params.carrier_code
 		});
 
-
-		console.log(airport);
-		console.log(year);
-		console.log(month);
-		console.log(first);
-		console.log(this.state.pick_date);
-
 		let response;
 
 		if (first===true){
@@ -174,7 +158,6 @@ class CarrierMinutesDelay extends React.Component {
 		this.setState({
 			delays: response.data
 		})
-		console.log(response);
 	}
 
 	componentDidMount() {

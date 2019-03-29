@@ -15,9 +15,7 @@ class CarrierAllStatistics extends React.Component {
 	}
 
 	getStatistics = async () => {
-		
-		console.log(this.props.match.params.airport_code);
-		this.setState({
+				this.setState({
 			airport_code:this.props.match.params.airport_code,
 			carrier_code:this.props.match.params.carrier_code
 		});
@@ -27,7 +25,6 @@ class CarrierAllStatistics extends React.Component {
 		this.setState({
 			statistics: response.data
 		})
-		console.log(this.state);
 
 	}
 

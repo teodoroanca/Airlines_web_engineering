@@ -19,8 +19,6 @@ class CarriersAll extends React.Component {
 			carriers: response.data
 		})
 
-		console.log(this.state.carriers);
-
 	}
 
 	renderCarriers() {
