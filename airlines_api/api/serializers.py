@@ -13,6 +13,8 @@ from api.models import (
     Time,
 )
 
+# Serializers provide a way of serializing and deserializing the snippet instances respresentations such as json or csv.
+
 
 class AirportSerializer(serializers.ModelSerializer):
     """

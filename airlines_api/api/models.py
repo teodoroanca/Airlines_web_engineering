@@ -14,6 +14,8 @@ __all__ = (
     'CarrierRating'
 )
 
+#     Here, the tables of the database are defined
+
 
 class Time(models.Model):
     """
@@ -69,6 +71,7 @@ class Statistics(models.Model):
                             MinutesDelayed,
                             related_name="minutes_delayed_statistics",
                             on_delete=models.CASCADE)
+
 
 class Carrier(models.Model):
     """

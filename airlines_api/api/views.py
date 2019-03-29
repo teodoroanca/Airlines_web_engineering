@@ -53,7 +53,7 @@ def csv_renderer(self):
 
 class AirportViewSet(ModelViewSet):
     """
-        View for Airports
+        View for the airports
     """
     model = Airport
     serializer_class = AirportSerializer
@@ -80,7 +80,7 @@ class AirportViewSet(ModelViewSet):
 
 class CarrierViewSet(ModelViewSet):
     """
-        View for carrier
+        View for the carriers
     """
     model = Carrier
     serializer_class = CarrierSerializer
@@ -144,6 +144,7 @@ class CarrierViewSet(ModelViewSet):
                 content = {'error': 'Number of stars not specified'}
                 return Response(content, status=status.HTTP_400_BAD_REQUEST)
 
+            # Number of votes should be between 1 and 5 stars
             if int(stars) < 1 or int(stars) > 5:
                 content = {'error': 'Invalid numbers of stars'}
                 return Response(content, status=status.HTTP_400_BAD_REQUEST)
@@ -208,8 +209,8 @@ class AirportCarrierViewSet(ModelViewSet):
     def get_queryset(self, *args, **kwargs):
         # Grabbing the airport code from the request and filtering by it
         airport_code = self.request.parser_context['kwargs']['parent_lookup_airports']
-
-        return Carrier.objects.filter(carrier_entries__airport__code=airport_code)
+        queryset = Carrier.objects.filter(carrier_entries__airport__code=airport_code).distinct()
+        return queryset
 
     def retrieve(self, request, *args, **kwargs):
         carrier_code = self.request.parser_context['kwargs']['pk']
