@@ -29,6 +29,8 @@ from api.views import (
     CarrierReviewSet,
 )
 
+# Here all the routes for the api are defined
+# Better explained (with examples) in the documentation
 router = ExtendedDefaultRouter()
 
 airports = router.register(r'airports', AirportViewSet, base_name='airports')

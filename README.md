@@ -15,6 +15,12 @@ Install virtualenv
 $ pip install --user virtualenv
 ```
 
+Install node
+```shell
+$ brew install node
+```
+
+
 ## Configuration and running
 
 Create a virtual environment for this project
@@ -54,7 +60,17 @@ Now import the data from the json
 ./manage.py import_json
 ```
 
-Start the development server
+Start the development server (backend)
 ```shell
 ./manage.py runserver
+```
+
+Open another terminal and navigate into the "frontend" folder
+```shell
+cd ../frontend
+```
+
+Start the server
+```shell
+npm start
 ```
